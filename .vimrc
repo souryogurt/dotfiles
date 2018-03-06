@@ -71,15 +71,22 @@ if has("autocmd")
   " For all go files set makeprg to be go build.
   autocmd FileType go set makeprg=go\ build
 
-  autocmd FileType c setlocal number
-  autocmd FileType cpp setlocal number
+  autocmd FileType c,cpp setlocal number nowrap tabstop=8 shiftwidth=8
+    \ softtabstop=8 textwidth=80 noexpandtab cindent cinoptions=:0,l1,t0,g0,(0
+
   augroup END
 
 else
 
   set autoindent		" always set autoindenting on
+  " C in general
   set number
-
+  set nowrap
+  set tabstop=8
+  set shiftwidth=8
+  set softtabstop=8
+  set textwidth=80
+  set noexpandtab
 endif " has("autocmd")
 
 " Convenient command to see the difference between the current buffer and the
