@@ -74,6 +74,8 @@ if has("autocmd")
   autocmd FileType c,cpp setlocal number nowrap tabstop=8 shiftwidth=8
     \ softtabstop=8 textwidth=80 noexpandtab cindent cinoptions=:0,l1,t0,g0,(0
 
+   let g:load_doxygen_syntax=1
+
   augroup END
 
 else
