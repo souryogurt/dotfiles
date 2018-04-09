@@ -76,6 +76,8 @@ if has("autocmd")
 
    let g:load_doxygen_syntax=1
 
+  autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab
   augroup END
 
 else
@@ -100,4 +102,3 @@ if !exists(":DiffOrig")
 endif
 
 set colorcolumn=80
-set background=dark
