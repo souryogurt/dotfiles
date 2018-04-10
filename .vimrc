@@ -78,6 +78,7 @@ if has("autocmd")
 
   autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 expandtab
   autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab
   augroup END
 
 else
