@@ -76,9 +76,9 @@ if has("autocmd")
 
    let g:load_doxygen_syntax=1
 
-  autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab
-  autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 expandtab nowrap
+  autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab nowrap
+  autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   augroup END
 
 else
