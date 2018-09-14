@@ -42,6 +42,10 @@ if &t_Co > 2 || has("gui_running")
   set hlsearch
 endif
 
+" Disable backup and swap files unconditionally
+set nobackup
+set nowritebackup
+
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
@@ -69,7 +73,7 @@ if has("autocmd")
     \ endif
 
   " For all go files set makeprg to be go build.
-  autocmd FileType go set makeprg=go\ build
+  autocmd FileType go setlocal makeprg=go\ build number nowrap textwidth=80
 
   autocmd FileType c,cpp setlocal number nowrap tabstop=8 shiftwidth=8
     \ softtabstop=8 textwidth=80 noexpandtab cindent cinoptions=:0,l1,t0,g0,(0
@@ -79,6 +83,8 @@ if has("autocmd")
   autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab nowrap
+  autocmd FileType scss setlocal shiftwidth=2 tabstop=2 expandtab nowrap
+  autocmd FileType json setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   augroup END
 
 else
