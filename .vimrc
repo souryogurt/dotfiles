@@ -72,8 +72,8 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif
 
-  " For all go files set makeprg to be go build.
-  autocmd FileType go setlocal makeprg=go\ build number nowrap textwidth=80
+  let g:go_fmt_command = "goimports"
+  autocmd FileType go setlocal number nowrap textwidth=80
 
   autocmd FileType c,cpp setlocal number nowrap tabstop=8 shiftwidth=8
     \ softtabstop=8 textwidth=80 noexpandtab cindent cinoptions=:0,l1,t0,g0,(0
