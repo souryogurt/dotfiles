@@ -85,7 +85,7 @@ if has("autocmd")
   autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   autocmd FileType scss setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   autocmd FileType json setlocal shiftwidth=2 tabstop=2 expandtab nowrap
-  autocmd FileType python setlocal nowrap
+  autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab smarttab nowrap
   augroup END
 
 else
