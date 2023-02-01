@@ -78,14 +78,16 @@ if has("autocmd")
   autocmd FileType c,cpp setlocal number nowrap tabstop=8 shiftwidth=8
     \ softtabstop=8 textwidth=80 noexpandtab cindent cinoptions=:0,l1,t0,g0,(0
 
-   let g:load_doxygen_syntax=1
+  let g:load_doxygen_syntax=1
 
   autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   autocmd FileType scss setlocal shiftwidth=2 tabstop=2 expandtab nowrap
   autocmd FileType json setlocal shiftwidth=2 tabstop=2 expandtab nowrap
+  autocmd FileType vue setlocal shiftwidth=4 tabstop=4 expandtab nowrap
   autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab smarttab nowrap
+  autocmd FileType lua setlocal shiftwidth=4 tabstop=4 expandtab nowrap number
   augroup END
 
 else
