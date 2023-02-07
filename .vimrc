@@ -10,15 +10,10 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file
-endif
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
+set history=50    " keep 50 lines of command line history
+set ruler   " show the cursor position all the time
+set showcmd   " display incomplete commands
+set incsearch   " do incremental searching
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -41,6 +36,27 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
+
+if has("termguicolors")     " set true colors
+  set termguicolors
+endif
+
+set colorcolumn=80
+colorscheme catppuccin_mocha
+
+if exists('*term_setansicolors')
+  let g:terminal_ansi_colors = [
+        \'#45475a', '#f38ba8', '#a6e3a1', '#f9e2af',
+        \'#89b4fa', '#f5c2e7', '#94e2d5', '#bac2de',
+        \'#585b70', '#f38ba8', '#a6e3a1', '#f9e2af',
+        \'#89b4fa', '#f5c2e7', '#94e2d5', '#a6adc8' ]
+endif
+
+" enable lightline
+let g:lightline = {"colorscheme": "catppuccin_mocha"}
+set laststatus=2
+set noshowmode
+
 
 " Disable backup and swap files unconditionally
 set nobackup
@@ -73,26 +89,32 @@ if has("autocmd")
     \ endif
 
   let g:go_fmt_command = "goimports"
-  autocmd FileType go setlocal number nowrap textwidth=80
+  autocmd FileType go setlocal number nowrap textwidth=80 cursorline cursorlineopt=number
 
   autocmd FileType c,cpp setlocal number nowrap tabstop=8 shiftwidth=8
     \ softtabstop=8 textwidth=80 noexpandtab cindent cinoptions=:0,l1,t0,g0,(0
+    \ cursorline cursorlineopt=number
 
   let g:load_doxygen_syntax=1
 
-  autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 expandtab nowrap
-  autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab nowrap
-  autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab nowrap
-  autocmd FileType scss setlocal shiftwidth=2 tabstop=2 expandtab nowrap
-  autocmd FileType json setlocal shiftwidth=2 tabstop=2 expandtab nowrap
-  autocmd FileType vue setlocal shiftwidth=4 tabstop=4 expandtab nowrap
-  autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab smarttab nowrap
-  autocmd FileType lua setlocal shiftwidth=4 tabstop=4 expandtab nowrap number
+  autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType scss setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType json setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType vue setlocal shiftwidth=4 tabstop=4 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab smarttab nowrap number cursorline cursorlineopt=number
+  autocmd FileType lua setlocal shiftwidth=4 tabstop=4 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType vim setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType sh setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType i3config setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType taskedit setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number autoindent
+  autocmd FileType help setlocal colorcolumn=0 cursorline
   augroup END
 
 else
 
-  set autoindent		" always set autoindenting on
+  set autoindent    " always set autoindenting on
   " C in general
   set number
   set nowrap
@@ -108,7 +130,5 @@ endif " has("autocmd")
 " Only define it when not defined already.
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+      \ | wincmd p | diffthis
 endif
-
-set colorcolumn=80
