@@ -7,16 +7,16 @@ endif
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
+" map <Leader> key to space
+let g:mapleader = " "
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-set history=50    " keep 50 lines of command line history
+set history=500    " keep 50 lines of command line history
 set ruler   " show the cursor position all the time
 set showcmd   " display incomplete commands
 set incsearch   " do incremental searching
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -106,7 +106,8 @@ if has("autocmd")
   autocmd FileType python setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab smarttab nowrap number cursorline cursorlineopt=number
   autocmd FileType lua setlocal shiftwidth=4 tabstop=4 expandtab nowrap number cursorline cursorlineopt=number
   autocmd FileType vim setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
-  autocmd FileType sh setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
+  autocmd FileType sh,bash setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
   autocmd FileType i3config setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number
   autocmd FileType taskedit setlocal shiftwidth=2 tabstop=2 expandtab nowrap number cursorline cursorlineopt=number autoindent
   autocmd FileType help setlocal colorcolumn=0 cursorline
@@ -132,3 +133,12 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
       \ | wincmd p | diffthis
 endif
+
+let g:NERDTreeMinimalUI = 1
+let NERDTreeShowHidden=1
+nnoremap <leader>e :NERDTreeToggle<CR>
+
+
+" move cursor to the right or bellow after split (instead of top left)
+set splitright
+set splitbelow
