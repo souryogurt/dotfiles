@@ -42,15 +42,20 @@ if has("termguicolors")     " set true colors
 endif
 
 set colorcolumn=80
-colorscheme catppuccin_mocha
 
-if exists('*term_setansicolors')
-  let g:terminal_ansi_colors = [
-        \'#45475a', '#f38ba8', '#a6e3a1', '#f9e2af',
-        \'#89b4fa', '#f5c2e7', '#94e2d5', '#bac2de',
-        \'#585b70', '#f38ba8', '#a6e3a1', '#f9e2af',
-        \'#89b4fa', '#f5c2e7', '#94e2d5', '#a6adc8' ]
-endif
+try
+
+  colorscheme catppuccin_mocha
+
+  if exists('*term_setansicolors')
+    let g:terminal_ansi_colors = [
+          \'#45475a', '#f38ba8', '#a6e3a1', '#f9e2af',
+          \'#89b4fa', '#f5c2e7', '#94e2d5', '#bac2de',
+          \'#585b70', '#f38ba8', '#a6e3a1', '#f9e2af',
+          \'#89b4fa', '#f5c2e7', '#94e2d5', '#a6adc8' ]
+  endif
+catch
+endtry
 
 " enable lightline
 let g:lightline = {"colorscheme": "catppuccin_mocha"}
