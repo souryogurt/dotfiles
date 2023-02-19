@@ -20,6 +20,9 @@ o.swapfile = false
 o.splitright = true
 o.splitbelow = true
 
+-- show diagnostic signs on the number column
+opt.signcolumn = "number"
+
 -- In many terminal emulators the mouse works just fine, thus enable it.
 opt.mouse = "a"
 
@@ -31,10 +34,7 @@ end
 
 if pcall(vim.cmd.packadd, "nvim-treesitter") then
     require("nvim-treesitter.configs").setup({
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
-        },
+        highlight = { enable = true },
         incremental_selection = { enable = true },
         indent = { enable = true },
     })
@@ -49,4 +49,21 @@ if pcall(vim.cmd.packadd, "plenary") then
         vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
         vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
     end
+end
+
+if pcall(vim.cmd.packadd, "lsp-zero.nvim") then
+    pcall(vim.cmd.packadd, "nvim-lspconfig")
+    pcall(vim.cmd.packadd, "mason.nvim")
+    pcall(vim.cmd.packadd, "mason-lspconfig.nvim")
+    pcall(vim.cmd.packadd, "nvim-cmp")
+    pcall(vim.cmd.packadd, "cmp-nvim-lsp")
+    pcall(vim.cmd.packadd, "cmp-buffer")
+    pcall(vim.cmd.packadd, "cmp-path")
+    pcall(vim.cmd.packadd, "LuaSnip")
+    pcall(vim.cmd.packadd, "cmp-nvim-lua")
+    local lsp = require("lsp-zero").preset({
+        name = "recommended",
+    })
+    lsp.nvim_workspace()
+    lsp.setup()
 end
