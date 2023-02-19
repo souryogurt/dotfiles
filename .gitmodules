@@ -1,0 +1,15 @@
+[submodule ".local/share/nvim/site/pack/souryogurt/opt/catppuccin"]
+	path = .local/share/nvim/site/pack/souryogurt/opt/catppuccin
+	url = git@github.com:catppuccin/nvim.git
+[submodule ".local/share/nvim/site/pack/souryogurt/opt/nvim-treesitter"]
+	path = .local/share/nvim/site/pack/souryogurt/opt/nvim-treesitter
+	url = git@github.com:nvim-treesitter/nvim-treesitter.git
+[submodule ".local/share/nvim/site/pack/souryogurt/opt/nvim-web-devicons"]
+	path = .local/share/nvim/site/pack/souryogurt/opt/nvim-web-devicons
+	url = git@github.com:nvim-tree/nvim-web-devicons.git
+[submodule ".local/share/nvim/site/pack/souryogurt/opt/plenary"]
+	path = .local/share/nvim/site/pack/souryogurt/opt/plenary
+	url = git@github.com:nvim-lua/plenary.nvim.git
+[submodule ".local/share/nvim/site/pack/souryogurt/opt/telescope"]
+	path = .local/share/nvim/site/pack/souryogurt/opt/telescope
+	url = git@github.com:nvim-telescope/telescope.nvim.git
