@@ -51,10 +51,10 @@ if pcall(vim.cmd.packadd, "plenary") then
     end
 end
 
-if pcall(vim.cmd.packadd, "lsp-zero.nvim") then
+if pcall(vim.cmd.packadd, "lsp-zero") then
     pcall(vim.cmd.packadd, "nvim-lspconfig")
-    pcall(vim.cmd.packadd, "mason.nvim")
-    pcall(vim.cmd.packadd, "mason-lspconfig.nvim")
+    pcall(vim.cmd.packadd, "mason")
+    pcall(vim.cmd.packadd, "mason-lspconfig")
     pcall(vim.cmd.packadd, "nvim-cmp")
     pcall(vim.cmd.packadd, "cmp-nvim-lsp")
     pcall(vim.cmd.packadd, "cmp-buffer")
