@@ -269,12 +269,16 @@ bar {
     # The default just shows the current date and time.
     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
 
+
+    # use waybar if available
+    swaybar_command waybar
+
     colors {
         background $base
         statusline $text
         separator  $surface0
 
-#       class              border    background text
+    #   class              border    background text
         focused_workspace  $overlay1 $surface1  $text
         active_workspace   $lavender $surface2  $text
         inactive_workspace $overlay0 $surface0  $overlay1
