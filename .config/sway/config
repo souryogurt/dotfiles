@@ -115,6 +115,11 @@ input "1267:12608:MSFT0001:00_04F3:3140_Mouse" {
     natural_scroll enabled
 }
 
+input "1:1:AT_Translated_Set_2_keyboard" {
+    xkb_layout us,ru
+    xkb_options grp:win_space_toggle,compose:caps
+}
+
 ### Key bindings
 #
 # Basics:
