@@ -237,6 +237,24 @@ input "1:1:AT_Translated_Set_2_keyboard" {
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+#
+# Extended keys:
+#
+
+    #To raise the volume
+    bindsym XF86AudioRaiseVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+
+    #To lower the volume
+    bindsym XF86AudioLowerVolume exec wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-
+    #To mute/unmute the volume
+    bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+    #To mute/unmute the microphone
+    bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+    # Display brightness control with extended keyboard keys
+    bindsym XF86MonBrightnessUp exec brightnessctl s +10%
+    bindsym XF86MonBrightnessDown exec brightnessctl s 10%-
+
 #
 # Resizing containers:
 #
