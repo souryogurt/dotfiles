@@ -63,12 +63,16 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be
 # opened on the original workspace that the command was run on.
-set $menu bemenu-run --no-exec | xargs swaymsg exec --
+set $menu bemenu-run --fn "RobotoMono NF 11" -p "󱓞" -H 25 -i \
+          --fb "$base" --ff "$text" --nb "$base" --nf "$text" \
+          --tb "$base" --hb "$base" --tf "$mauve" --hf "$peach" \
+          --af "$overlay2" --ab "$base" \
+          | xargs swaymsg exec --
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/default.png fill
+output * bg /usr/share/backgrounds/f37/default/f37-01-night.png fill
 
 #
 # Example configuration:
