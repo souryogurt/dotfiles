@@ -69,6 +69,9 @@ set $menu bemenu-run --fn "RobotoMono NF 11" -p "󱓞" -H 25 -i \
           --af "$overlay2" --ab "$base" \
           | xargs swaymsg exec --
 
+# Your preferred terminal emulator
+set $browser google-chrome --password-store=gnome
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -130,6 +133,9 @@ input "1:1:AT_Translated_Set_2_keyboard" {
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+
+    # Start a browser
+    bindsym $mod+Shift+b exec $browser
 
     # Kill focused window
     bindsym $mod+Shift+q kill
