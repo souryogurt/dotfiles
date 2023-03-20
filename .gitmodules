@@ -43,3 +43,9 @@
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/cmp-nvim-lua"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/cmp-nvim-lua
 	url = git@github.com:hrsh7th/cmp-nvim-lua.git
+[submodule ".local/share/nvim/site/pack/souryogurt/opt/null-ls"]
+	path = .local/share/nvim/site/pack/souryogurt/opt/null-ls
+	url = git@github.com:jose-elias-alvarez/null-ls.nvim.git
+[submodule ".local/share/nvim/site/pack/souryogurt/opt/mason-null-ls"]
+	path = .local/share/nvim/site/pack/souryogurt/opt/mason-null-ls
+	url = git@github.com:jay-babu/mason-null-ls.nvim.git

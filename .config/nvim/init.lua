@@ -36,7 +36,7 @@ if pcall(vim.cmd.packadd, "nvim-treesitter") then
     require("nvim-treesitter.configs").setup({
         highlight = { enable = true },
         incremental_selection = { enable = true },
-        indent = { enable = true },
+        indent = { enable = false },
     })
 end
 
@@ -55,15 +55,47 @@ if pcall(vim.cmd.packadd, "lsp-zero") then
     pcall(vim.cmd.packadd, "nvim-lspconfig")
     pcall(vim.cmd.packadd, "mason")
     pcall(vim.cmd.packadd, "mason-lspconfig")
+    pcall(vim.cmd.packadd, "mason-null-ls")
     pcall(vim.cmd.packadd, "nvim-cmp")
     pcall(vim.cmd.packadd, "cmp-nvim-lsp")
     pcall(vim.cmd.packadd, "cmp-buffer")
     pcall(vim.cmd.packadd, "cmp-path")
     pcall(vim.cmd.packadd, "LuaSnip")
     pcall(vim.cmd.packadd, "cmp-nvim-lua")
+
+    pcall(vim.cmd.packadd, "null-ls")
+
     local lsp = require("lsp-zero").preset({
         name = "recommended",
     })
     lsp.nvim_workspace()
+    lsp.configure('volar', {
+        on_init = function(client)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentFormattingRangeProvider = false
+        end,
+    })
     lsp.setup()
+
+    local null_ls = require('null-ls')
+    local null_opts = lsp.build_options('null-ls', {})
+
+    null_ls.setup({
+        on_attach = function(client, bufnr)
+            null_opts.on_attach(client, bufnr)
+        end,
+        sources = {
+            -- You can add tools not supported by mason.nvim
+        }
+    })
+
+    -- See mason-null-ls.nvim's documentation for more details:
+    -- https://github.com/jay-babu/mason-null-ls.nvim#setup
+    require('mason-null-ls').setup({
+        automatic_installation = false, -- You can still set this to `true`
+        automatic_setup = true,
+    })
+
+    -- Required when `automatic_setup` is true
+    require('mason-null-ls').setup_handlers()
 end
