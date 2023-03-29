@@ -75,7 +75,7 @@ set $browser google-chrome --password-store=gnome
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/f37/default/f37-01-night.png fill
+output * bg /home/yoyo/downloads/bg2.webp fill
 
 #
 # Example configuration:
