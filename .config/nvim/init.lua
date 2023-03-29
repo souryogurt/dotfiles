@@ -26,6 +26,8 @@ opt.signcolumn = "number"
 -- In many terminal emulators the mouse works just fine, thus enable it.
 opt.mouse = "a"
 
+vim.keymap.set({ "n", "v", "o" }, "Q", "gq", { desc = "Format code" })
+
 -- Set catppuccin theme if installed
 if pcall(vim.cmd.packadd, "catppuccin") then
     require("catppuccin").setup({ term_colors = true })
