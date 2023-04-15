@@ -46,10 +46,6 @@
 	path = .local/share/nvim/site/pack/souryogurt/opt/mason-lspconfig
 	url = git@github.com:williamboman/mason-lspconfig.nvim.git
 	ignore = dirty
-[submodule ".local/share/nvim/site/pack/souryogurt/opt/lsp-zero"]
-	path = .local/share/nvim/site/pack/souryogurt/opt/lsp-zero
-	url = git@github.com:VonHeikemen/lsp-zero.nvim.git
-	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/LuaSnip"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/LuaSnip
 	url = git@github.com:L3MON4D3/LuaSnip.git
