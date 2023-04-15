@@ -49,3 +49,6 @@
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/mason-null-ls"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/mason-null-ls
 	url = git@github.com:jay-babu/mason-null-ls.nvim.git
+[submodule ".local/share/nvim/site/pack/souryogurt/opt/telescope-live-grep-args"]
+	path = .local/share/nvim/site/pack/souryogurt/opt/telescope-live-grep-args
+	url = https://github.com/nvim-telescope/telescope-live-grep-args.nvim.git
