@@ -51,7 +51,11 @@ if pcall(vim.cmd.packadd, "plenary") then
         vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
         if pcall(vim.cmd.packadd, "telescope-live-grep-args") then
             require("telescope").load_extension("live_grep_args")
-            vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+            vim.keymap.set(
+                "n",
+                "<leader>fg",
+                ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>"
+            )
         else
             vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
         end
@@ -76,7 +80,7 @@ if pcall(vim.cmd.packadd, "lsp-zero") then
         name = "recommended",
     })
     lsp.nvim_workspace()
-    lsp.configure('volar', {
+    lsp.configure("volar", {
         on_init = function(client)
             client.server_capabilities.documentFormattingProvider = false
             client.server_capabilities.documentFormattingRangeProvider = false
@@ -84,8 +88,15 @@ if pcall(vim.cmd.packadd, "lsp-zero") then
     })
     lsp.setup()
 
-    local null_ls = require('null-ls')
-    local null_opts = lsp.build_options('null-ls', {})
+    -- See mason-null-ls.nvim's documentation for more details:
+    -- https://github.com/jay-babu/mason-null-ls.nvim#setup
+    require("mason-null-ls").setup({
+        automatic_installation = false, -- You can still set this to `true`
+        handlers = {},
+    })
+
+    local null_ls = require("null-ls")
+    local null_opts = lsp.build_options("null-ls", {})
 
     null_ls.setup({
         on_attach = function(client, bufnr)
@@ -93,16 +104,6 @@ if pcall(vim.cmd.packadd, "lsp-zero") then
         end,
         sources = {
             -- You can add tools not supported by mason.nvim
-        }
+        },
     })
-
-    -- See mason-null-ls.nvim's documentation for more details:
-    -- https://github.com/jay-babu/mason-null-ls.nvim#setup
-    require('mason-null-ls').setup({
-        automatic_installation = false, -- You can still set this to `true`
-        automatic_setup = true,
-    })
-
-    -- Required when `automatic_setup` is true
-    require('mason-null-ls').setup_handlers()
 end

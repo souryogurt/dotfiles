@@ -1,54 +1,72 @@
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/catppuccin"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/catppuccin
 	url = git@github.com:catppuccin/nvim.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/nvim-treesitter"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/nvim-treesitter
 	url = git@github.com:nvim-treesitter/nvim-treesitter.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/nvim-web-devicons"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/nvim-web-devicons
 	url = git@github.com:nvim-tree/nvim-web-devicons.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/plenary"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/plenary
 	url = git@github.com:nvim-lua/plenary.nvim.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/telescope"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/telescope
 	url = git@github.com:nvim-telescope/telescope.nvim.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/nvim-lspconfig"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/nvim-lspconfig
 	url = git@github.com:neovim/nvim-lspconfig.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/nvim-cmp"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/nvim-cmp
 	url = git@github.com:hrsh7th/nvim-cmp.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/cmp-buffer"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/cmp-buffer
 	url = git@github.com:hrsh7th/cmp-buffer.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/cmp-path"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/cmp-path
 	url = git@github.com:hrsh7th/cmp-path.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/cmp-nvim-lsp"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/cmp-nvim-lsp
 	url = git@github.com:hrsh7th/cmp-nvim-lsp.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/mason"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/mason
 	url = git@github.com:williamboman/mason.nvim.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/mason-lspconfig"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/mason-lspconfig
 	url = git@github.com:williamboman/mason-lspconfig.nvim.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/lsp-zero"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/lsp-zero
 	url = git@github.com:VonHeikemen/lsp-zero.nvim.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/LuaSnip"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/LuaSnip
 	url = git@github.com:L3MON4D3/LuaSnip.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/cmp-nvim-lua"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/cmp-nvim-lua
 	url = git@github.com:hrsh7th/cmp-nvim-lua.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/null-ls"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/null-ls
 	url = git@github.com:jose-elias-alvarez/null-ls.nvim.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/mason-null-ls"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/mason-null-ls
 	url = git@github.com:jay-babu/mason-null-ls.nvim.git
+	ignore = dirty
 [submodule ".local/share/nvim/site/pack/souryogurt/opt/telescope-live-grep-args"]
 	path = .local/share/nvim/site/pack/souryogurt/opt/telescope-live-grep-args
 	url = https://github.com/nvim-telescope/telescope-live-grep-args.nvim.git
+	ignore = dirty
