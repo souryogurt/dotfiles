@@ -70,10 +70,10 @@ if pcall(vim.cmd.packadd, "lsp-zero") then
     pcall(vim.cmd.packadd, "mason-null-ls")
     pcall(vim.cmd.packadd, "nvim-cmp") -- +
     pcall(vim.cmd.packadd, "cmp-nvim-lsp") -- +
-    pcall(vim.cmd.packadd, "cmp-buffer")
-    pcall(vim.cmd.packadd, "cmp-path")
+    pcall(vim.cmd.packadd, "cmp-buffer") -- +
+    pcall(vim.cmd.packadd, "cmp-path") -- +
     pcall(vim.cmd.packadd, "LuaSnip") -- +
-    pcall(vim.cmd.packadd, "cmp-nvim-lua")
+    pcall(vim.cmd.packadd, "cmp-nvim-lua") -- +
     pcall(vim.cmd.packadd, "null-ls")
 
     local lsp = require("lsp-zero").preset({
@@ -108,7 +108,6 @@ if pcall(vim.cmd.packadd, "lsp-zero") then
     })
 end
 --]]
-
 local lspconfig
 local lsp_capabilities = {}
 if pcall(vim.cmd.packadd, "nvim-lspconfig") then
@@ -126,6 +125,15 @@ if pcall(vim.cmd.packadd, "LuaSnip") then
             table.insert(sources, { name = "nvim_lsp" })
             local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
             lsp_capabilities = vim.tbl_deep_extend("force", lsp_capabilities, cmp_capabilities)
+        end
+        if pcall(vim.cmd.packadd, "cmp-nvim-lua") then
+            table.insert(sources, { name = "nvim_lua" })
+        end
+        if pcall(vim.cmd.packadd, "cmp-path") then
+            table.insert(sources, { name = "path" })
+        end
+        if pcall(vim.cmd.packadd, "cmp-buffer") then
+            table.insert(sources, { name = "buffer" })
         end
 
         -- setup cmp
@@ -152,12 +160,9 @@ if pcall(vim.cmd.packadd, "LuaSnip") then
                 ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                 ["<C-f>"] = cmp.mapping.scroll_docs(4),
                 ["<C-e>"] = cmp.mapping.abort(),
-
                 ["<Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_next_item()
-                    -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-                    -- they way you will only jump inside the snippet region
                     elseif luasnip.expand_or_jumpable() then
                         luasnip.expand_or_jump()
                     elseif has_words_before() then
@@ -166,7 +171,6 @@ if pcall(vim.cmd.packadd, "LuaSnip") then
                         fallback()
                     end
                 end, { "i", "s" }),
-
                 ["<S-Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
@@ -176,7 +180,6 @@ if pcall(vim.cmd.packadd, "LuaSnip") then
                         fallback()
                     end
                 end, { "i", "s" }),
-
                 ["<CR>"] = cmp.mapping.confirm({ select = false }),
             }),
             sources = cmp.config.sources(sources),
@@ -201,10 +204,8 @@ if lspconfig then
         nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
         nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
         nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-        -- See `:help K` for why this keymap
         nmap("K", vim.lsp.buf.hover, "Hover Documentation")
         nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-        -- Lesser used LSP functionality
         nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
         nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
         nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
@@ -216,20 +217,40 @@ if lspconfig then
             vim.lsp.buf.format()
         end, { desc = "Format current buffer with LSP" })
     end
+
+    local mason
     if pcall(vim.cmd.packadd, "mason") then
-        require("mason").setup()
-        if pcall(vim.cmd.packadd, "mason-lspconfig") then
-            local mason_lspconfig = require("mason-lspconfig")
-            mason_lspconfig.setup()
-            mason_lspconfig.setup_handlers({
-                function(server_name)
-                    lspconfig[server_name].setup({
-                        on_attach = lsp_attach,
-                        capabilities = lsp_capabilities,
-                    })
-                end,
-            })
-        end
+        mason = require("mason")
+        mason.setup()
+    end
+    if mason and pcall(vim.cmd.packadd, "mason-lspconfig") then
+        local mason_lspconfig = require("mason-lspconfig")
+        mason_lspconfig.setup()
+        mason_lspconfig.setup_handlers({
+            -- The first entry (without a key) will be the default handler
+            -- and will be called for each installed server that doesn't have
+            -- a dedicated handler.
+            function(server_name)
+                lspconfig[server_name].setup({
+                    on_attach = lsp_attach,
+                    capabilities = lsp_capabilities,
+                })
+            end,
+            -- Next, you can provide a dedicated handler for specific servers.
+            ["lua_ls"] = function()
+                lspconfig["lua_ls"].setup({
+                    on_attach = lsp_attach,
+                    capabilities = lsp_capabilities,
+                    settings = {
+                        Lua = {
+                            diagnostics = {
+                                globals = { "vim" },
+                            },
+                        },
+                    },
+                })
+            end,
+        })
     else
         -- setup lspconfig manually
         -- lspconfig["tsserver"].setup({
