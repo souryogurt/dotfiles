@@ -189,30 +189,24 @@ end
 
 if lspconfig then
     local function lsp_attach(_, bufnr)
-        local nmap = function(keys, func, desc)
-            if desc then
-                desc = "LSP: " .. desc
-            end
-            vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
-        end
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Goto Definition" })
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Goto Declaration" })
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Goto Implementation" })
+        vim.keymap.set("n", "go", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Goto Type Definition" })
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Goto References" })
+        vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Documentation" })
+        vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
+        vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { buffer = bufnr, desc = "Format" })
+        vim.keymap.set("x", "<F3>", vim.lsp.buf.format, { buffer = bufnr, desc = "Format" })
+        vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
 
-        nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-        nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-        nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
-        nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-        nmap("gI", vim.lsp.buf.implementation, "[G]oto [I]mplementation")
-        nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-        nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-        nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-        nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-        nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-        nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-        nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-        nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-        nmap("<leader>wl", function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, "[W]orkspace [L]ist Folders")
-        -- Create a command `:Format` local to the LSP buffer
+        local visual_code_action = vim.lsp.buf.range_code_action or vim.lsp.buf.code_action
+        vim.keymap.set("x", "<F4>", visual_code_action, { buffer = bufnr, desc = "Code Action" })
+        vim.keymap.set("n", "gl", vim.diagnostic.open_float, { buffer = bufnr, desc = "Show diagnostics" })
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "Previous diagnostics" })
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Next diagnostics" })
+
         vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
             vim.lsp.buf.format()
         end, { desc = "Format current buffer with LSP" })
@@ -259,3 +253,27 @@ if lspconfig then
         -- })
     end
 end
+
+-- Can be none/single/double/rounded/solid/shadow
+local border = "rounded"
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    update_in_insert = true,
+    underline = true,
+    severity_sort = true,
+    float = {
+        focused = false, -- no such parameter, maybe "focasable" ?
+        style = "minimal", -- probably no such parameter
+        border = border, -- none/single/double/rounded/solid/shadow
+        source = true, -- "if_many" to show the source only if many sources
+        header = "",
+        prefix = "",
+    },
+})
+vim.fn.sign_define("DiagnosticSignError", { texthl = "DiagnosticSignError", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignWarn", { texthl = "DiagnosticSignWarn", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignHint", { texthl = "DiagnosticSignHint", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignInfo", { texthl = "DiagnosticSignInfo", text = "", numhl = "" })
