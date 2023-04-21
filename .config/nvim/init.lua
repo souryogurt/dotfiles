@@ -10,6 +10,9 @@ g.mapleader = " "
 -- Number of screen lines to keep above and below the cursor
 o.scrolloff = 5
 
+-- Hide the last entered command line
+o.cmdheight = 0
+
 -- Undo and backup options
 o.backup = false
 o.writebackup = false
