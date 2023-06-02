@@ -50,7 +50,7 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 2
+    x: 3
     y: 3
 
   # Spread additional padding evenly around the terminal content.
@@ -115,18 +115,6 @@ window:
 font:
   normal:
     family: RobotoMono NF
-      #family: Hack NF
-      #family: UbuntuMono NF
-    style: Regular
-  bold:
-    family: RobotoMono NF
-    style: Bold
-  italic:
-    family: RobotoMono NF
-    style: Regular Italic
-  bold_italic:
-    family: RobotoMono NF
-    style: Bold Italic
 
   # Point size
   size: 11.0
