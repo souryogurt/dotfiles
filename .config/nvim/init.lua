@@ -48,6 +48,11 @@ end
 if pcall(vim.cmd.packadd, "plenary") then
     pcall(vim.cmd.packadd, "nvim-web-devicons")
     if pcall(vim.cmd.packadd, "telescope") then
+        require("telescope").setup({
+            defaults = {
+                layout_strategy = "flex",
+            },
+        })
         local builtin = require("telescope.builtin")
         vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
         vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
