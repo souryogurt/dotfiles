@@ -43,3 +43,4 @@ context.home.read=+home
 context.home.write=+home
 context.work.read=-home or +work
 context.work.write=+work
+context=home
