@@ -8,13 +8,13 @@ percentage=$(upower -i "$battery_info" | awk -F': ' '/percentage/ {gsub(/^[ \t]+
 date=$(LC_ALL=ru_RU.UTF-8 date +"%x")
 time=$(LC_ALL=ru_RU.UTF-8 date +"%X")
 
-printf "<b>%-13s</b> %s\n" "Дата:" "$date"
-printf "<b>%-14s</b> %s\n" "Время:" "$time"
-printf "<b>%-14s</b> %s\n" "Заряд:" "$percentage"
+printf "<b>%-14s</b> %s\n" "Дата:" "$date"
+printf "<b>%-15s</b> %s\n" "Время:" "$time"
+printf "<b>%-15s</b> %s\n" "Заряд:" "$percentage"
 
 if [[ "$state" == "charging" ]]; then
     time_to_full=$(upower -i "$battery_info" | awk -F': ' '/time to full/ {gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2}')
-    printf "<b>%-15s</b> %s\n" "Время до полного заряда:" "$time_to_full"
+    printf "<b>%-15s</b> %s\n" "До заряда:" "$time_to_full"
 elif [[ "$state" == "discharging" ]]; then
     time_to_empty=$(upower -i "$battery_info" | awk -F': ' '/time to empty/ {gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2}')
     printf "<b>%-15s</b> %s\n" "Осталось:" "$time_to_empty"
