@@ -7,6 +7,11 @@ local opt = vim.opt
 -- Map <leader> to space
 g.mapleader = " "
 
+-- Add russian language keymap (switch using CTRL+SHFT+6 in insert mode)
+o.keymap = "russian-jcukenwin"
+o.iminsert = 0
+o.imsearch = 0
+
 -- Number of screen lines to keep above and below the cursor
 o.scrolloff = 5
 
