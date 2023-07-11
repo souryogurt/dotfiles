@@ -17,7 +17,7 @@ if [[ "$state" == "charging" ]]; then
     printf "<b>%-15s</b> %s\n" "До заряда:" "$time_to_full"
 elif [[ "$state" == "discharging" ]]; then
     time_to_empty=$(upower -i "$battery_info" | awk -F': ' '/time to empty/ {gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2}')
-    printf "<b>%-15s</b> %s\n" "Осталось:" "$time_to_empty"
+    printf "<b>%-18s</b> %s\n" "Осталось:" "$time_to_empty"
 else
-    printf "<b>%-15s</b> %s\n" "Статус батареи:" "$state"
+    printf "<b>%-16s</b> %s\n" "Статус:" "$state"
 fi
