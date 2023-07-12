@@ -41,7 +41,6 @@ end
 
 if pcall(vim.cmd.packadd, "nvim-treesitter") then
     require("nvim-treesitter.configs").setup({
-        auto_install = true,
         highlight = { enable = true },
         incremental_selection = { enable = true },
         indent = { enable = false },
@@ -54,6 +53,17 @@ if pcall(vim.cmd.packadd, "plenary") then
         require("telescope").setup({
             defaults = {
                 layout_strategy = "flex",
+                layout_config = {
+                    height = 0.95,
+                    width = 0.854328011,
+                    flip_columns = 131,
+                    vertical = {
+                        preview_height = 0.618033,
+                    },
+                    horizontal = {
+                        preview_width = 0.618033,
+                    },
+                },
             },
         })
         local builtin = require("telescope.builtin")
