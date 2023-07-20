@@ -5,7 +5,7 @@ battery_info=$(upower -e | grep -m 1 -E 'battery|DisplayDevice')
 state=$(upower -i "$battery_info" | awk -F': ' '/state/ {gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2}')
 percentage=$(upower -i "$battery_info" | awk -F': ' '/percentage/ {gsub(/^[ \t]+|[ \t]+$/,"",$2); print $2}')
 
-date=$(LC_ALL=ru_RU.UTF-8 date +"%x")
+date=$(LC_ALL=ru_RU.UTF-8 date +"%x(%A)")
 time=$(LC_ALL=ru_RU.UTF-8 date +"%X")
 
 printf "<b>%-14s</b> %s\n" "Дата:" "$date"
