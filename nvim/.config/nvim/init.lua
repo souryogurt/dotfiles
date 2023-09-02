@@ -115,6 +115,7 @@ lazy.setup({
     -- Theming
     { "catppuccin/nvim" },
     { "nvim-tree/nvim-web-devicons" },
+    { "folke/which-key.nvim" },
     -- Utilities
     { "nvim-lua/plenary.nvim" },
     -- Fuzzy finder
@@ -146,6 +147,20 @@ lazy.setup({
 require("catppuccin").setup({ term_colors = true })
 vim.cmd.colorscheme("catppuccin-mocha")
 
+-- Setup whichkey
+vim.o.timeout = true
+vim.o.timeoutlen = 300
+local wk = require("which-key")
+wk.setup({
+    show_help = false,
+    window = {
+        border = "rounded",
+    },
+})
+wk.register({
+    f = { name = "+Find", desc = "Find" },
+}, { prefix = "<leader>" })
+
 -- Setup TreeSitter
 require("nvim-treesitter.configs").setup({
     auto_install = true,
@@ -175,10 +190,19 @@ require("telescope").setup({
     },
 })
 require("telescope").load_extension("live_grep_args")
-vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, {})
-vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, {})
-vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, {})
-vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
+local live_grep_args = require("telescope").extensions.live_grep_args.live_grep_args
+local grep_word_under_cursor = require("telescope-live-grep-args.shortcuts").grep_word_under_cursor
+
+
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>", { desc = "Find files" })
+vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "Find buffers" })
+vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "Find help" })
+vim.keymap.set( "n", "<leader>fw", live_grep_args, { desc = "Find Words" })
+vim.keymap.set("n", "<leader>fc", grep_word_under_cursor, { desc = "Find for word under cursor" })
+vim.keymap.set("n", "<leader>f<CR>", "<cmd>Telescope resume<CR>", { desc = "Resume previous search" })
+vim.keymap.set("n", "<leader>f'", "<cmd>Telescope marks<CR>", { desc = "Find marks" })
+vim.keymap.set("n", "<leader>fk", "<cmd>Telescope keymaps<CR>", { desc = "Find keymaps" })
+vim.keymap.set("n", "<leader>fm", "<cmd>Telescope man_pages<CR>", { desc = "Find man" })
 
 -- Setup copilot
 require("copilot").setup({
