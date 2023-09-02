@@ -1,42 +1,75 @@
--- General settings
-
-local g = vim.g
-local o = vim.o
-local opt = vim.opt
+-- ┌─┐┌┬┐┬┌┬┐┌─┐┬─┐  ┌─┐┌─┐┌┬┐┌┬┐┬┌┐┌┌─┐┌─┐
+-- ├┤  │││ │ │ │├┬┘  └─┐├┤  │  │ │││││ ┬└─┐
+-- └─┘─┴┘┴ ┴ └─┘┴└─  └─┘└─┘ ┴  ┴ ┴┘└┘└─┘└─┘
 
 -- Map <leader> to space
-g.mapleader = " "
+vim.g.mapleader = " "
+-- Map <localleader> to comma
+vim.g.maplocalleader = "\\"
 
 -- Add russian language keymap (switch using CTRL+SHFT+6 in insert mode)
-o.keymap = "russian-jcukenwin"
-o.iminsert = 0
-o.imsearch = 0
+vim.o.keymap = "russian-jcukenwin"
+vim.o.iminsert = 0
+vim.o.imsearch = 0
 
 -- Number of screen lines to keep above and below the cursor
-o.scrolloff = 5
+vim.o.scrolloff = 5
 
 -- Undo and backup options
-o.backup = false
-o.writebackup = false
-o.undofile = true
-o.swapfile = false
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.undofile = true
+vim.o.swapfile = false
 
 -- Better buffer splitting
-o.splitright = true
-o.splitbelow = true
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 -- show diagnostic signs on the number column
-opt.signcolumn = "number"
+vim.opt.signcolumn = "number"
 
 -- In many terminal emulators the mouse works just fine, thus enable it.
-opt.mouse = "a"
+vim.opt.mouse = "a"
 
+-- Shortcuts
 vim.keymap.set({ "n", "v", "o" }, "Q", "gq", { desc = "Format code" })
+
+-- ┌─┐┌─┐┌┬┐┌┬┐┌─┐┌┐┌┌┬┐┌─┐
+-- │  │ │││││││├─┤│││ ││└─┐
+-- └─┘└─┘┴ ┴┴ ┴┴ ┴┘└┘─┴┘└─┘
+
+local group = vim.api.nvim_create_augroup("user_cmds", { clear = true })
+
+-- Check if we need to reload the file when it changed
+vim.api.nvim_create_autocmd("FocusGained", {
+    desc = "Check if the file must be reloaded",
+    group = group,
+    command = "checktime",
+})
+
+-- Highlight yanked text
+vim.api.nvim_create_autocmd("TextYankPost", {
+    desc = "Highlight on yank",
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = group,
+    pattern = "*",
+})
+
+-- ┌─┐┬  ┬ ┬┌─┐┬┌┐┌┌─┐
+-- ├─┘│  │ ││ ┬││││└─┐
+-- ┴  ┴─┘└─┘└─┘┴┘└┘└─┘
+
+-- ┌─┐┬  ┬ ┬┌─┐┬┌┐┌  ┌─┐┌─┐┌┐┌┌─┐┬┌─┐┬ ┬┬─┐┌─┐┌┬┐┬┌─┐┌┐┌
+-- ├─┘│  │ ││ ┬││││  │  │ ││││├┤ ││ ┬│ │├┬┘├─┤ │ ││ ││││
+-- ┴  ┴─┘└─┘└─┘┴┘└┘  └─┘└─┘┘└┘└  ┴└─┘└─┘┴└─┴ ┴ ┴ ┴└─┘┘└┘
 
 -- Set catppuccin theme
 require("catppuccin").setup({ term_colors = true })
 vim.cmd.colorscheme("catppuccin-mocha")
 
+-- Setup TreeSitter
 require("nvim-treesitter.configs").setup({
     auto_install = true,
     highlight = { enable = true },
@@ -44,6 +77,7 @@ require("nvim-treesitter.configs").setup({
     indent = { enable = false },
 })
 
+-- Setup Telescope
 require("telescope").setup({
     defaults = {
         layout_strategy = "flex",
@@ -60,31 +94,22 @@ require("telescope").setup({
         },
     },
 })
-local builtin = require("telescope.builtin")
 require("telescope").load_extension("live_grep_args")
-vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, {})
+vim.keymap.set("n", "<leader>fb", require("telescope.builtin").buffers, {})
+vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags, {})
 vim.keymap.set("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 
+-- Setup copilot
 require("copilot").setup({
     suggestion = { enabled = false },
     panel = { enabled = false },
 })
-
-local lspconfig = require("lspconfig")
-
-local luasnip = require("luasnip")
-local cmp = require("cmp")
 require("copilot_cmp").setup()
-local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-local lsp_capabilities = vim.tbl_deep_extend("force", {}, cmp_capabilities)
 
--- setup cmp
-local border_ops = {
-    border = "single",
-    winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-}
+-- Setup nvim-cmp
+local cmp = require("cmp")
+local luasnip = require("luasnip")
 cmp.setup({
     snippet = {
         expand = function(args)
@@ -92,8 +117,14 @@ cmp.setup({
         end,
     },
     window = {
-        completion = cmp.config.window.bordered(border_ops),
-        documentation = cmp.config.window.bordered(border_ops),
+        completion = cmp.config.window.bordered({
+            border = "rounded",
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        }),
+        documentation = cmp.config.window.bordered({
+            border = "rounded",
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        }),
     },
     mapping = cmp.mapping.preset.insert({
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -142,62 +173,67 @@ cmp.setup({
     },
 })
 
-local function lsp_attach(_, bufnr)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Goto Definition" })
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = bufnr, desc = "Goto Declaration" })
-    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = bufnr, desc = "Goto Implementation" })
-    vim.keymap.set("n", "go", vim.lsp.buf.type_definition, { buffer = bufnr, desc = "Goto Type Definition" })
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Goto References" })
-    vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = bufnr, desc = "Signature Documentation" })
-    vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename" })
-    vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { buffer = bufnr, desc = "Format" })
-    vim.keymap.set("x", "<F3>", vim.lsp.buf.format, { buffer = bufnr, desc = "Format" })
-    vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
+-- LSP Config
+local lspconfig = require("lspconfig")
+local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lsp_capabilities = vim.tbl_deep_extend("force", lspconfig.util.default_config, cmp_capabilities)
 
-    local visual_code_action = vim.lsp.buf.range_code_action or vim.lsp.buf.code_action
-    vim.keymap.set("x", "<F4>", visual_code_action, { buffer = bufnr, desc = "Code Action" })
-    vim.keymap.set("n", "gl", vim.diagnostic.open_float, { buffer = bufnr, desc = "Show diagnostics" })
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = bufnr, desc = "Previous diagnostics" })
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = bufnr, desc = "Next diagnostics" })
-
-    vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-        vim.lsp.buf.format()
-    end, { desc = "Format current buffer with LSP" })
-end
-
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("mason-lspconfig").setup_handlers({
-    -- The first entry (without a key) will be the default handler
-    -- and will be called for each installed server that doesn't have
-    -- a dedicated handler.
-    function(server_name)
-        lspconfig[server_name].setup({
-            on_attach = lsp_attach,
-            capabilities = lsp_capabilities,
-        })
-    end,
-    -- Next, you can provide a dedicated handler for specific servers.
-    ["lua_ls"] = function()
-        lspconfig["lua_ls"].setup({
-            on_attach = lsp_attach,
-            capabilities = lsp_capabilities,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = { "vim" },
+-- LSP Servers
+require("mason").setup({
+    ui = { border = "rounded" },
+})
+require("mason-lspconfig").setup({
+    handlers = {
+        function(server_name)
+            lspconfig[server_name].setup({ capabilities = lsp_capabilities })
+        end,
+        ["lua_ls"] = function()
+            lspconfig["lua_ls"].setup({
+                capabilities = lsp_capabilities,
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { "vim" },
+                        },
                     },
                 },
-            },
-        })
+            })
+        end,
+    },
+})
+
+-- LSP Keybindings
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = group,
+    desc = "LSP actions",
+    callback = function()
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = true, desc = "Hover Documentation" })
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = true, desc = "Goto Definition" })
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { buffer = true, desc = "Goto Declaration" })
+        vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { buffer = true, desc = "Goto Implementation" })
+        vim.keymap.set("n", "go", vim.lsp.buf.type_definition, { buffer = true, desc = "Goto Type Definition" })
+        vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = true, desc = "Goto References" })
+        vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, { buffer = true, desc = "Signature Documentation" })
+        vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { buffer = true, desc = "Rename" })
+        vim.keymap.set("n", "<F3>", vim.lsp.buf.format, { buffer = true, desc = "Format" })
+        vim.keymap.set("x", "<F3>", vim.lsp.buf.format, { buffer = true, desc = "Format" })
+        vim.keymap.set("n", "<F4>", vim.lsp.buf.code_action, { buffer = true, desc = "Code Action" })
+
+        local visual_code_action = vim.lsp.buf.range_code_action or vim.lsp.buf.code_action
+        vim.keymap.set("x", "<F4>", visual_code_action, { buffer = true, desc = "Code Action" })
+        vim.keymap.set("n", "gl", vim.diagnostic.open_float, { buffer = true, desc = "Show diagnostics" })
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { buffer = true, desc = "Previous diagnostics" })
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { buffer = true, desc = "Next diagnostics" })
     end,
 })
 
--- Can be none/single/double/rounded/solid/shadow
-local border = "rounded"
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+-- Diagnostic Customization
+vim.fn.sign_define("DiagnosticSignError", { texthl = "DiagnosticSignError", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignWarn", { texthl = "DiagnosticSignWarn", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignHint", { texthl = "DiagnosticSignHint", text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignInfo", { texthl = "DiagnosticSignInfo", text = "", numhl = "" })
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 vim.diagnostic.config({
     virtual_text = false,
     signs = true,
@@ -205,17 +241,14 @@ vim.diagnostic.config({
     underline = true,
     severity_sort = true,
     float = {
-        focused = false, -- no such parameter, maybe "focasable" ?
-        style = "minimal", -- probably no such parameter
-        border = border, -- none/single/double/rounded/solid/shadow
-        source = true, -- "if_many" to show the source only if many sources
+        focused = false,
+        style = "minimal",
+        border = "rounded",
+        source = true,
         header = "",
         prefix = "",
     },
 })
-vim.fn.sign_define("DiagnosticSignError", { texthl = "DiagnosticSignError", text = "", numhl = "" })
-vim.fn.sign_define("DiagnosticSignWarn", { texthl = "DiagnosticSignWarn", text = "", numhl = "" })
-vim.fn.sign_define("DiagnosticSignHint", { texthl = "DiagnosticSignHint", text = "", numhl = "" })
-vim.fn.sign_define("DiagnosticSignInfo", { texthl = "DiagnosticSignInfo", text = "", numhl = "" })
 
-g.go_fmt_command = "goimports"
+-- Setup vim-go
+vim.g.go_fmt_command = "goimports"
