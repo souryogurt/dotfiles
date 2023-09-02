@@ -9,5 +9,8 @@ plugin.opts = {
     incremental_selection = { enable = true },
     indent = { enable = false },
 }
+function plugin.config(_, opts)
+    require("nvim-treesitter.configs").setup(opts)
+end
 
 return plugin
