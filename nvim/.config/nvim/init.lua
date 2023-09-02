@@ -115,14 +115,14 @@ lazy.setup({
     -- Theming
     { "catppuccin/nvim" },
     { "nvim-tree/nvim-web-devicons" },
+    -- Utilities
+    { "nvim-lua/plenary.nvim" },
     -- Fuzzy finder
     { "nvim-telescope/telescope.nvim" },
     { "nvim-telescope/telescope-live-grep-args.nvim" },
     -- Code manipulation
     { "nvim-treesitter/nvim-treesitter" },
     { "fatih/vim-go" },
-    -- Utilities
-    { "nvim-lua/plenary.nvim" },
     -- LSP Support
     { "neovim/nvim-lspconfig" },
     { "williamboman/mason.nvim" },
@@ -153,6 +153,9 @@ require("nvim-treesitter.configs").setup({
     incremental_selection = { enable = true },
     indent = { enable = false },
 })
+
+-- Setup vim-go
+vim.g.go_fmt_command = "goimports"
 
 -- Setup Telescope
 require("telescope").setup({
@@ -326,6 +329,3 @@ vim.diagnostic.config({
         prefix = "",
     },
 })
-
--- Setup vim-go
-vim.g.go_fmt_command = "goimports"
