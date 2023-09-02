@@ -61,6 +61,83 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- ├─┘│  │ ││ ┬││││└─┐
 -- ┴  ┴─┘└─┘└─┘┴┘└┘└─┘
 
+local lazy = {}
+
+function lazy.install(path)
+    if not vim.loop.fs_stat(path) then
+        print("Installing lazy.nvim....")
+        vim.fn.system({
+            "git",
+            "clone",
+            "--filter=blob:none",
+            "https://github.com/folke/lazy.nvim.git",
+            "--branch=stable", -- latest stable release
+            path,
+        })
+    end
+end
+
+function lazy.setup(plugins)
+    lazy.install(lazy.path)
+    vim.opt.rtp:prepend(lazy.path)
+    require("lazy").setup(plugins, lazy.opts)
+end
+
+lazy.path = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+lazy.opts = {
+    defaults = {
+        -- Make all plugins lazy-loaded by default.
+        -- lazy = true,
+        -- Always use the latest git commit to load plugins.
+        version = false,
+    },
+    install = { missing = true, colorscheme = { "catppuccin" } },
+    -- Automatically check for plugin updates on startup.
+    checker = { enabled = false },
+    performance = {
+        rtp = {
+            -- Disable some rtp plugins
+            disabled_plugins = {
+                "gzip",
+                -- "matchit",
+                -- "matchparen",
+                -- "netrwPlugin",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
+}
+
+lazy.setup({
+    -- Theming
+    { "catppuccin/nvim" },
+    { "nvim-tree/nvim-web-devicons" },
+    -- Fuzzy finder
+    { "nvim-telescope/telescope.nvim" },
+    { "nvim-telescope/telescope-live-grep-args.nvim" },
+    -- Code manipulation
+    { "nvim-treesitter/nvim-treesitter" },
+    { "fatih/vim-go" },
+    -- Utilities
+    { "nvim-lua/plenary.nvim" },
+    -- LSP Support
+    { "neovim/nvim-lspconfig" },
+    { "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
+    -- Autocomplete
+    { "hrsh7th/nvim-cmp" },
+    { "hrsh7th/cmp-buffer" },
+    { "hrsh7th/cmp-path" },
+    { "hrsh7th/cmp-nvim-lsp" },
+    { "hrsh7th/cmp-nvim-lua" },
+    { "zbirenbaum/copilot.lua" },
+    { "zbirenbaum/copilot-cmp" },
+    { "L3MON4D3/LuaSnip" },
+})
+
 -- ┌─┐┬  ┬ ┬┌─┐┬┌┐┌  ┌─┐┌─┐┌┐┌┌─┐┬┌─┐┬ ┬┬─┐┌─┐┌┬┐┬┌─┐┌┐┌
 -- ├─┘│  │ ││ ┬││││  │  │ ││││├┤ ││ ┬│ │├┬┘├─┤ │ ││ ││││
 -- ┴  ┴─┘└─┘└─┘┴┘└┘  └─┘└─┘┘└┘└  ┴└─┘└─┘┴└─┴ ┴ ┴ ┴└─┘┘└┘
