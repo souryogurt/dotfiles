@@ -2,7 +2,15 @@ return {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
     config = function()
-        require("chatgpt").setup()
+        require("chatgpt").setup({
+            openai_params = {
+                model = "gpt-4",
+            },
+            openai_edit_params = {
+                model = "gpt-4",
+            },
+            use_openai_functions_for_edits = true,
+        })
         local wk = require("which-key")
         wk.register({
             c = {
