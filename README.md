@@ -1,6 +1,6 @@
 # My dotfiles
 
-Before installation make sure the following directories are existing.
+Before installation, make sure the following directories exist.
 
 ```sh
 # TODO: add this into installation code

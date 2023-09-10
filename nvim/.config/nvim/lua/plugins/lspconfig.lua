@@ -82,6 +82,14 @@ function plugin.config()
                     },
                 })
             end,
+            ["grammarly"] = function()
+                lspconfig["grammarly"].setup({
+                    capabilities = lsp_capabilities,
+                    init_options = {
+                        client_id = "client_BaDkMgx4X19X9UxxYRCXZo",
+                    },
+                })
+            end,
         },
     })
 end
