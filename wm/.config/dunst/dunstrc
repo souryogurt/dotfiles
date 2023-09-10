@@ -1,0 +1,20 @@
+[global]
+frame_color = "#89B4FA"
+separator_color = frame
+enable_posix_regex = true
+padding = 16
+frame_width = 1
+font = "RobotoMono NF 11"
+
+[urgency_low]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+
+[urgency_normal]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+
+[urgency_critical]
+background = "#1E1E2E"
+foreground = "#CDD6F4"
+frame_color = "#FAB387"
