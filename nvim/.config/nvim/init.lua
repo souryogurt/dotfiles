@@ -98,6 +98,9 @@ lazy.opts = {
         border = "rounded",
         title = " Lazy ",
     },
+    change_detection = {
+        notify = false,
+    },
     performance = {
         rtp = {
             -- Disable some rtp plugins

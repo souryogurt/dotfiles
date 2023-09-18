@@ -9,7 +9,6 @@ return {
             openai_edit_params = {
                 model = "gpt-4",
             },
-            use_openai_functions_for_edits = true,
         })
         local wk = require("which-key")
         wk.register({
@@ -37,6 +36,6 @@ return {
         "MunifTanjim/nui.nvim",
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope.nvim",
-        "folke/which-key.nvim"
-    }
+        "folke/which-key.nvim",
+    },
 }
