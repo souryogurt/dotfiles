@@ -88,7 +88,7 @@ floating_modifier $mod
 bindsym $mod+q exec i3-sensible-terminal
 
 # start browser
-bindsym $mod+b exec --no-startup-id google-chrome --password-store=gnome --test-type
+bindsym $mod+b exec --no-startup-id google-chrome --test-type
 
 # start file manager
 bindsym $mod+e exec --no-startup-id nautilus
