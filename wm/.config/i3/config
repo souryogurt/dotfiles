@@ -47,6 +47,7 @@ set $mantle    #181825
 set $crust     #11111b
 
 for_window [class="^.*"] border pixel 0
+for_window [class="gnome-calculator"] floating enable
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
