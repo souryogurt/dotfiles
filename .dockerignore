@@ -1,0 +1,9 @@
+.git
+Dockerfile
+**/*.log
+.idea/
+**/.DS_Store
+**/Thumbs.db
+**/*.swp
+/*.md
+.gitignore
