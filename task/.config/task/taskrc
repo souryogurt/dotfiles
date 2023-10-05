@@ -16,7 +16,7 @@ data.location=~/.task
 # Color theme (uncomment one to use)
 #include /usr/share/task/light-16.theme
 #include /usr/share/task/light-256.theme
-#include /usr/share/task/dark-16.theme
+include /usr/share/task/dark-16.theme
 #include /usr/share/task/dark-256.theme
 #include /usr/share/task/dark-red-256.theme
 #include /usr/share/task/dark-green-256.theme
@@ -28,7 +28,16 @@ data.location=~/.task
 #include /usr/share/task/solarized-dark-256.theme
 #include /usr/share/task/solarized-light-256.theme
 #include /usr/share/task/no-color.theme
-include catppuccin-mocha-256.theme
+#include catppuccin-mocha-256.theme
+
+uda.taskwarrior-tui.style.report.selection=
+uda.taskwarrior-tui.style.context.active=white on black
+uda.taskwarrior-tui.style.calendar.title=white on black
+uda.taskwarrior-tui.style.report.scrollbar=black
+uda.taskwarrior-tui.task-report.show-info=false
+uda.taskwarrior-tui.style.navbar=black
+uda.taskwarrior-tui.style.command=black
+
 
 weekstart=Monday
 
@@ -43,4 +52,3 @@ context.home.read=+home
 context.home.write=+home
 context.work.read=-home or +work
 context.work.write=+work
-context=home
