@@ -52,6 +52,7 @@ button:hover {
 }
 
 #workspaces button.urgent {
+    color: @mantle;
     background-color: @red;
 }
 
