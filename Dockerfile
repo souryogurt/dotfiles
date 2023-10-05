@@ -4,6 +4,9 @@ FROM fedora:latest
 # Update the system
 RUN dnf -y update
 
+# Install tools required for neovim plugins
+RUN dnf -y install gcc make
+
 # Install development tools
 RUN dnf -y install bat direnv exa git neovim ripgrep stow tmux zoxide
 
@@ -20,11 +23,11 @@ USER dev
 WORKDIR /home/dev
 
 # Copy local repository into the image
-COPY . ./dotfiles
+COPY --chown=dev:dev . ./src/github.com/souryogurt/dotfiles
 
 RUN rm .bashrc .bash_profile && \
-    cd dotfiles && \
-    stow -Sv bat core direnv exa git nvim task tmux zoxide && \
+    cd ./src/github.com/souryogurt/dotfiles && \
+    stow -Sv -t ~/ bat core direnv exa git nvim task tmux zoxide && \
     bat cache --build
 
 # Set up an entry point to start a shell
