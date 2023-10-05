@@ -1,8 +1,10 @@
 {
   "layer": "top",
   "position": "bottom",
-  "height": 22,
+  "height": 24,
   "spacing": 0,
+  "mode": "hide",
+  "start_hidden": true,
   "modules-left": [
     "hyprland/workspaces",
     "hyprland/submap"
