@@ -85,6 +85,13 @@ function plugin.config()
             ["grammarly"] = function()
                 lspconfig["grammarly"].setup({
                     capabilities = lsp_capabilities,
+                    cmd = {
+                        "n",
+                        "run",
+                        "16",
+                        require("mason-core.path").bin_prefix("grammarly-languageserver"),
+                        "--stdio",
+                    },
                     init_options = {
                         client_id = "client_BaDkMgx4X19X9UxxYRCXZo",
                     },
