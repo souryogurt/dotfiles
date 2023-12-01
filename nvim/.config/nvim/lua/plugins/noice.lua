@@ -30,6 +30,33 @@ return {
             {
                 filter = {
                     event = "msg_show",
+                    find = "Finished loading packages.",
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = "msg_show",
+                    find = "initializing gopls",
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = "msg_show",
+                    find = "initialized gopls",
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    find = "definition] SUCCESS",
+                },
+                opts = { skip = true },
+            },
+            {
+                filter = {
+                    event = "msg_show",
                     kind = "search_count",
                 },
                 opts = { skip = true },
