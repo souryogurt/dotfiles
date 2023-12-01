@@ -16,6 +16,9 @@ return {
             "edgy",
         },
         popup_border_style = "rounded", -- "double", "none", "rounded", "shadow", "single" or "solid"
+        window = {
+            position = "right",
+        },
     },
     config = function(_, opts)
         require("neo-tree").setup(opts)
