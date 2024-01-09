@@ -13,6 +13,7 @@ return {
         lsp_cfg = {
             capabilities = lsp_capabilities,
         },
+        lsp_keymaps = false,
         diagnostic = false,
         lsp_inlay_hints = {
             enable = false,
