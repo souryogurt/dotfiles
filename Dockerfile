@@ -8,7 +8,7 @@ RUN dnf -y update
 RUN dnf -y install gcc make
 
 # Install development tools
-RUN dnf -y install bat direnv exa git neovim ripgrep stow tmux zoxide
+RUN dnf -y install bat direnv eza git neovim ripgrep stow tmux zoxide
 
 # Create a user for the development environment and configure sudo access
 RUN useradd -m dev && \
@@ -27,7 +27,7 @@ COPY --chown=dev:dev . ./src/github.com/souryogurt/dotfiles
 
 RUN rm .bashrc .bash_profile && \
     cd ./src/github.com/souryogurt/dotfiles && \
-    stow -Sv -t ~/ bat core direnv exa git nvim task tmux zoxide && \
+    stow -Sv -t ~/ bat core direnv eza git nvim task tmux zoxide && \
     bat cache --build
 
 # Set up an entry point to start a shell
