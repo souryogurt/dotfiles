@@ -12,6 +12,13 @@ return {
     require("go").setup({
         lsp_cfg = {
             capabilities = lsp_capabilities,
+            settings = {
+                gopls = {
+                    analyses = {
+                        ST1003 = false,
+                    },
+                },
+            },
         },
         lsp_keymaps = false,
         diagnostic = false,
