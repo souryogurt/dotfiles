@@ -27,6 +27,8 @@ vim.o.splitbelow = true
 
 -- show diagnostic signs on the number column
 vim.opt.signcolumn = "number"
+vim.opt_local.cursorline = true
+vim.opt_local.cursorlineopt = "line,number"
 
 -- In many terminal emulators the mouse works just fine, thus enable it.
 vim.opt.mouse = "a"
