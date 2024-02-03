@@ -21,6 +21,15 @@ function plugin.config()
     wk.register({
         t = { name = "+Table", desk = "Table" },
     }, { prefix = "<leader>" })
+
+    vim.keymap.set('n', '<leader><Left>', '<C-w>h',
+        { noremap = true, silent = true, desc = "Move to left window" })
+    vim.keymap.set('n', '<leader><Down>', '<C-w>j',
+        { noremap = true, silent = true, desc = "Move to down window" })
+    vim.keymap.set('n', '<leader><Up>', '<C-w>k',
+        { noremap = true, silent = true, desc = "Move to up window" })
+    vim.keymap.set('n', '<leader><Right>', '<C-w>l',
+        { noremap = true, silent = true, desc = "Move to right window" })
 end
 
 return plugin

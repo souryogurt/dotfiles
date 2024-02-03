@@ -34,6 +34,8 @@ return {
         end,
         group = format_sync_grp,
     })
+    vim.keymap.set('n', '<F10>', ':GoTestFile<cr>',
+    { noremap = true, silent = true, desc = "Run go tests on current file" })
   end,
   event = {"CmdlineEnter"},
   ft = {"go", 'gomod'},
