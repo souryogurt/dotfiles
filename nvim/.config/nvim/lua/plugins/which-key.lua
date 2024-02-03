@@ -18,6 +18,9 @@ function plugin.config()
     wk.register({
         f = { name = "+Find", desc = "Find" },
     }, { prefix = "<leader>" })
+    wk.register({
+        t = { name = "+Table", desk = "Table" },
+    }, { prefix = "<leader>" })
 end
 
 return plugin
