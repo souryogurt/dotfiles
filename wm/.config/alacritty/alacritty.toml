@@ -4,13 +4,12 @@ import = ["/home/yoyo/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
 size = 11.0
 
 [font.normal]
-family = "RobotoMono NF"
+family = "RobotoMono Nerd Font"
 
 [mouse]
 hide_when_typing = true
 
 [window]
-dynamic_padding = true
 opacity = 1.0
 
 [window.padding]
