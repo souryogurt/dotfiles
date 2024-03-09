@@ -1,0 +1,67 @@
+# Use the latest Ubuntu as the base image
+FROM ubuntu:latest
+
+# Initial system update and install lsb-release
+RUN set -eux; \
+    apt-get update && apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends ca-certificates curl gnupg lsb-release
+
+# Manually add Neovim nightly/unstable PPA and its GPG key
+RUN set -eux; \
+    echo "deb http://ppa.launchpad.net/neovim-ppa/unstable/ubuntu $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/neovim-ppa-unstable.list && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 55F96FCF8231B6DD
+
+# Install tools and Neovim nightly/unstable
+RUN set -eux; \
+    export DEBIAN_FRONTEND=noninteractive; \
+    apt-get update && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        curl \
+        sudo \
+        gcc \
+        make \
+        bat \
+        direnv \
+        git \
+        ripgrep \
+        stow \
+        tmux \
+#OLD!       zoxide\
+        neovim
+
+# We need to install nodejs 18 too. The nodejs package from the Ubuntu repository is too old
+
+# Add the Gierens repository for the eza package
+RUN set -eux; \
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | gpg --dearmor -o /etc/apt/keyrings/gierens.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | tee /etc/apt/sources.list.d/gierens.list && \
+    chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends eza
+
+# Create a new user 'dev' with sudo privileges and no password required
+RUN set -eux; \
+    useradd -m dev && \
+    echo "dev:dev" | chpasswd && \
+    usermod --shell /bin/bash dev && \
+    echo "dev ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Switch to the new user 'dev'
+USER dev
+WORKDIR /home/dev
+
+# Copy the dotfiles repository to the container
+COPY --chown=dev:dev . ./src/github.com/souryogurt/dotfiles
+
+# Set up the dotfiles using stow and build the bat cache
+RUN set -eux; \
+    rm -fv .bashrc .bash_profile && \
+    cd ./src/github.com/souryogurt/dotfiles && \
+    stow -Sv -t ~/ bat core direnv eza git nvim task tmux zoxide && \
+    mkdir -p ~/.local/bin && \
+    ln -s /usr/bin/batcat ~/.local/bin/bat && \
+    batcat cache --build
+
+# Set the default command to bash
+ENTRYPOINT ["/bin/bash"]
