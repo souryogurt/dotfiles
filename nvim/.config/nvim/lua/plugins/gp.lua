@@ -21,6 +21,21 @@ return {
                     gp.info("Correcting selection with agent: " .. agent.name)
                     gp.Prompt(params, gp.Target.rewrite, nil, agent.model, template, agent.system_prompt)
                 end,
+                Commit = function(gp, params)
+                    local template = "Having the following git diff:\n\n"
+                    .. "```{filetype}\n{{selection}}\n```\n\n"
+                    .."Create a git commit message using the provided git diff, following these concise guidelines:\n"
+                    .. "1. **Title**: Craft an imperative, brief title within 60 characters.\n"
+                    .. "2. **Body**: After an empty line post-title, articulate the rationale behind the change, concentrating on why it was necessary rather than what was specifically added or modified.\n"
+                    .. "3. **Objective Focus**: Detail the main reasons for the adjustments, including what issue or requirement prompted the change, and the expected outcome, using direct and objective language.\n"
+                    .."**Key Points**:\n"
+                    .."- Use the imperative mood for the title to suggest action.\n"
+                    .."- In the description, avoid past tense descriptions of additions; focus instead on the present impact and future implications.\n"
+                    .."- Eliminate subjective language and avoid mentioning specific filenames or code lines."
+                    local agent = gp.get_command_agent()
+                    gp.info("Committing selection with agent: " .. agent.name)
+                    gp.Prompt(params, gp.Target.prepend, nil, agent.model, template, agent.system_prompt)
+                end,
             },
         })
         -- VISUAL mode mappings
