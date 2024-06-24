@@ -97,6 +97,11 @@ function plugin.config()
                     },
                 })
             end,
+            ["move_analyzer"] = function()
+                lspconfig["move_analyzer"].setup({
+                    cmd = {"/home/yoyo/bin/move-analyzer"},
+                })
+            end,
         },
     })
 end
