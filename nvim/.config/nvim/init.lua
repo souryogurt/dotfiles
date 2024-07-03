@@ -36,6 +36,9 @@ vim.opt.relativenumber = true
 -- In many terminal emulators the mouse works just fine, thus enable it.
 vim.opt.mouse = "a"
 
+-- Hide the cmdline in normal mode
+vim.opt.cmdheight=0
+
 -- Shortcuts
 vim.keymap.set({ "n", "v", "o" }, "Q", "gq", { desc = "Format code" })
 
