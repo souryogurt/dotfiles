@@ -11,16 +11,12 @@ function plugin.config()
     local wk = require("which-key")
     wk.setup({
         show_help = false,
-        window = {
+        win= {
             border = "rounded",
         },
     })
-    wk.register({
-        f = { name = "+Find", desc = "Find" },
-    }, { prefix = "<leader>" })
-    wk.register({
-        t = { name = "+Table", desk = "Table" },
-    }, { prefix = "<leader>" })
+    wk.add({{ "<leader>f", group = "Find" }})
+    wk.add({{ "<leader>t", group = "Table" }})
 
     vim.keymap.set('n', '<leader><Left>', '<C-w>h',
         { noremap = true, silent = true, desc = "Move to left window" })
