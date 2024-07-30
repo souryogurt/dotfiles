@@ -9,8 +9,7 @@ return {
                         .. "Please translate this into standard concise American English."
                         .. "\n\nRespond exclusively with the snippet that should replace the selection above."
                     local agent = gp.get_command_agent()
-                    gp.info("Translating selection with agent: " .. agent.name)
-                    gp.Prompt(params, gp.Target.rewrite, nil, agent.model, template, agent.system_prompt)
+                    gp.Prompt(params, gp.Target.rewrite, agent, template)
                 end,
                 Correct = function(gp, params)
                     local template = "Having the following text:\n\n"
@@ -18,8 +17,7 @@ return {
                         .. "Please rewrite this in standard, concise American English."
                         .. "\n\nRespond exclusively with the snippet that should replace the selection above."
                     local agent = gp.get_command_agent()
-                    gp.info("Correcting selection with agent: " .. agent.name)
-                    gp.Prompt(params, gp.Target.rewrite, nil, agent.model, template, agent.system_prompt)
+                    gp.Prompt(params, gp.Target.rewrite, agent, template)
                 end,
             },
         })
