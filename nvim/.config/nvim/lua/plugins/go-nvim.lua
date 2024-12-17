@@ -21,7 +21,6 @@ return {
             },
         },
         lsp_keymaps = false,
-        diagnostic = false,
         lsp_inlay_hints = {
             enable = false,
         },
