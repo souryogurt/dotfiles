@@ -102,6 +102,11 @@ function plugin.config()
                     cmd = {"/home/yoyo/bin/move-analyzer"},
                 })
             end,
+            ["clangd"] = function()
+                lspconfig["clangd"].setup({
+                    filetypes = { "c", "cpp", "objc", "objcpp", "cuda"}
+                })
+            end,
         },
     })
 end
