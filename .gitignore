@@ -1,1 +1,7 @@
 k9s/.config/k9s/config.yml
+/wm/.local/bin/aider
+/wm/.local/bin/aider-install
+/wm/.local/bin/claude
+/wm/.local/bin/uv
+/wm/.local/bin/uvx
+

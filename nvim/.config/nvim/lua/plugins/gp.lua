@@ -2,6 +2,33 @@ return {
     "robitx/gp.nvim",
     config = function()
         require("gp").setup({
+            providers = {
+                openai = {
+                    disable = false,
+                },
+                copilot = {
+                    endpoint = "https://api.githubcopilot.com/chat/completions",
+                    secret = {
+                        "bash",
+                        "-c",
+                        "cat ~/.config/github-copilot/apps.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+                    },
+                },
+            },
+            agents = {
+                {
+                    name = "ChatGPT3-5",
+                    disable = true,
+                },
+                {
+                    name = "MyCustomAgent",
+                    provider = "copilot",
+                    chat = true,
+                    command = true,
+                    model = { model = "gpt-4o" },
+                    system_prompt = "Answer any query with just: Sure thing..",
+                },
+            },
             hooks = {
                 Translate = function(gp, params)
                     local template = "Having the following text:\n\n"

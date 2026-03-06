@@ -102,6 +102,28 @@ function plugin.config()
                     cmd = {"/home/yoyo/bin/move-analyzer"},
                 })
             end,
+            ["rust-analyzer"] = function()
+                lspconfig["rust-analyzer"].setup({
+                    capabilities = lsp_capabilities,
+                    settings = {
+                        ["rust-analyzer"] = {
+                            cargo = {
+                                autoreload = false,
+                                buildScripts = {
+                                    enable = false,
+                                },
+                            },
+                            procMacro = {
+                                enable = false,
+                            },
+                            lruCapacity = 512,
+                            cachePriming = {
+                                enable = false,
+                            },
+                        },
+                    },
+                })
+            end,
             ["clangd"] = function()
                 lspconfig["clangd"].setup({
                     filetypes = { "c", "cpp", "objc", "objcpp", "cuda"}

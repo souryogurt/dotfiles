@@ -1,5 +1,6 @@
 local plugin = { "nvim-treesitter/nvim-treesitter" }
 
+plugin.branch = "master"
 plugin.build = ":TSUpdate"
 plugin.event = "BufReadPost"
 plugin.cmd = "TSInstall"

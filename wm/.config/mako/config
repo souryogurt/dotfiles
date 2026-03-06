@@ -21,5 +21,7 @@ actions=1
 layer=overlay
 anchor=bottom-right
 
+outer-margin=0,0,20,0
+
 [urgency=high]
 border-color=#fab387

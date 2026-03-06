@@ -18,7 +18,7 @@ plugin.dependencies = {
                     markdown = true,
                     gitcommit = true,
                     yaml = true,
-                }
+                },
             },
         },
     },

@@ -7,10 +7,11 @@ vim.g.mapleader = " "
 -- Map <localleader> to comma
 vim.g.maplocalleader = "\\"
 
--- Add russian language keymap (switch using CTRL+SHFT+6 in insert mode)
+-- Add russian language keymap (switch using CTRL+L in insert mode)
 vim.o.keymap = "russian-jcukenwin"
 vim.o.iminsert = 0
 vim.o.imsearch = 0
+vim.keymap.set("i", "<C-l>", "<C-^>", { noremap = true, silent = true, desc = "Switch keyboard layout (Insert mode)" })
 
 -- Number of screen lines to keep above and below the cursor
 vim.o.scrolloff = 5
@@ -26,7 +27,7 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 
 -- show diagnostic signs on the number column
-vim.opt.signcolumn = "auto"
+vim.opt.signcolumn = "yes"
 vim.opt_local.cursorline = true
 vim.opt_local.cursorlineopt = "line,number"
 
