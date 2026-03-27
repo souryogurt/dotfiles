@@ -16,6 +16,7 @@ function plugin.config()
         },
     })
     wk.add({{ "<leader>f", group = "Find" }})
+    wk.add({{ "<leader>g", group = "Git" }})
     wk.add({{ "<leader>t", group = "Table" }})
 
     vim.keymap.set('n', '<leader><Left>', '<C-w>h',

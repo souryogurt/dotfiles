@@ -12,6 +12,7 @@ return {
                     noice = true,
                     neotree = true,
                     which_key = true,
+                    diffview = true,
                 },
             })
             vim.cmd.colorscheme("catppuccin-mocha")
