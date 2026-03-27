@@ -7,6 +7,7 @@ vim.g.mapleader = " "
 -- Map <localleader> to comma
 vim.g.maplocalleader = "\\"
 
+vim.opt.clipboard:append("unnamedplus")
 -- Add russian language keymap (switch using CTRL+L in insert mode)
 vim.o.keymap = "russian-jcukenwin"
 vim.o.iminsert = 0

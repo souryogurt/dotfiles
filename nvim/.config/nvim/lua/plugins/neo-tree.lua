@@ -7,8 +7,13 @@ return {
         "MunifTanjim/nui.nvim",
     },
     opts = {
-        sources = { "filesystem" },
+        sources = { "filesystem", "git_status"},
+        source_selector = {
+            statusline = true,
+        },
+        default_source = "last",
         hide_root_node = true,              -- Hide the root node.
+        close_if_last_window = true,        -- Close Neo-tree if it is the last window left in the tab
         open_files_do_not_replace_types = { -- when opening files, do not use windows containing these filetypes or buftypes
             "terminal",
             "Trouble",
@@ -17,7 +22,7 @@ return {
         },
         popup_border_style = "rounded", -- "double", "none", "rounded", "shadow", "single" or "solid"
         window = {
-            position = "right",
+            position = "right", -- "float" is awesome too
         },
         filesystem = {
             follow_current_file = {
